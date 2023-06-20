@@ -22,10 +22,10 @@ public class PageGenerator {
         return pageGenerator;
     }
 
-    public String getPage(String filename, Map<String, Object> data) {
+    public String getPage(String fileName, Map<String, Object> data) {
         Writer stream = new StringWriter();
         try {
-            Template template = cfg.getTemplate(HTML_DIR + File.separator + filename);
+            Template template = cfg.getTemplate(HTML_DIR + File.separator + fileName);
             template.process(data, stream);
         } catch (IOException | TemplateException e) {
             throw new RuntimeException(e);

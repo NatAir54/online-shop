@@ -36,6 +36,6 @@ button {
 
 button:hover {
     color: blueviolet;
-    background: #fecd51;
+    background: #ffe121;
     cursor: pointer;
 }

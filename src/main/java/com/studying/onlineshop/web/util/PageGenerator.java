@@ -1,13 +1,13 @@
-package com.studying.onlineshop.templater;
+package com.studying.onlineshop.web.util;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
 import java.util.Map;
 
 public class PageGenerator {
@@ -31,6 +31,10 @@ public class PageGenerator {
             throw new RuntimeException(e);
         }
         return stream.toString();
+    }
+
+    public String getPage(String fileName) {
+        return getPage(fileName, Collections.emptyMap());
     }
 
     private PageGenerator() {

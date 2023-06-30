@@ -9,7 +9,7 @@ import java.util.List;
 
 public class JdbcGoodsDao implements GoodsDao {
     private static final GoodsRowMapper GOODS_ROW_MAPPER = new GoodsRowMapper();
-    private static final String SQL_CREATE_TABLE = "CREATE TABLE goods (id SERIAL, name varchar(50) NOT NULL, price int, dateTimeAdded DATE);";
+    private static final String SQL_CREATE_TABLE = "CREATE TABLE goods (id SERIAL PRIMARY KEY, name varchar(50) NOT NULL, price int NOT NULL, dateTimeAdded DATE);";
     private static final String SQL_INSERT_INTO = "INSERT INTO goods (name, price, dateTimeAdded) VALUES (?, ?, ?);";
     private static final String SQL_FIND_ALL = "SELECT id, name, price, dateTimeAdded FROM goods";
     private static final String SQL_UPDATE = "UPDATE goods SET name = ?, price = ?, dateTimeAdded = ? WHERE id = ?;";

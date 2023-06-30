@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ShopRequestServlet extends HttpServlet {
+public class MainPageRequestsServlet extends HttpServlet {
     private GoodsService goodsService;
 
-    public ShopRequestServlet(GoodsService goodsService) {
+    public MainPageRequestsServlet(GoodsService goodsService) {
         this.goodsService = goodsService;
     }
 

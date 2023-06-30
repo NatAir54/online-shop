@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcGoods {
+public class JdbcGoodsDao implements GoodsDao {
     private static final GoodsRowMapper GOODS_ROW_MAPPER = new GoodsRowMapper();
     private static final String SQL_CREATE_TABLE = "CREATE TABLE goods (id SERIAL, name varchar(50) NOT NULL, price int, dateTimeAdded DATE);";
     private static final String SQL_INSERT_INTO = "INSERT INTO goods (name, price, dateTimeAdded) VALUES (?, ?, ?);";
@@ -24,13 +24,16 @@ public class JdbcGoods {
         }
     }
 
-    public void add(Goods item) throws SQLException {
+    public void add(Goods item) {
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT_INTO);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setInt(2, item.getPrice());
             preparedStatement.setTimestamp(3, Timestamp.valueOf(item.getDate()));
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error while add goods ", e);
         }
     }
 
@@ -46,11 +49,12 @@ public class JdbcGoods {
             }
             return goods;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Error while find all goods", e);
         }
     }
 
-    public void update(Goods item, int id) throws SQLException {
+    public void update(Goods item, int id) {
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE);
             preparedStatement.setString(1, item.getName());
@@ -58,14 +62,20 @@ public class JdbcGoods {
             preparedStatement.setTimestamp(3, Timestamp.valueOf(item.getDate()));
             preparedStatement.setInt(4, id);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error while update goods", e);
         }
     }
 
-    public void remove(int id) throws SQLException {
+    public void remove(int id) {
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_REMOVE);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error while remove goods", e);
         }
     }
 

@@ -21,5 +21,12 @@
         <input type="submit" value="OK">
     </div>
 </form>
+<br/>
+<#if errorMessage??>
+    <div align="center">
+        ${errorMessage}
+    </div>
+</#if>
+
 </body>
 </html>

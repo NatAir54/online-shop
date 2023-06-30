@@ -3,17 +3,11 @@ package com.studying.onlineshop.web.servlet;
 import com.studying.onlineshop.entity.Goods;
 import com.studying.onlineshop.service.GoodsService;
 import com.studying.onlineshop.web.util.PageGenerator;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public class AddRequestServlet extends HttpServlet {
     private GoodsService goodsService;
@@ -33,11 +27,14 @@ public class AddRequestServlet extends HttpServlet {
             Goods good = getGoodsRequested(request);
             goodsService.add(good);
             response.sendRedirect("/goods/");
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            String errorMessage = "Goods data is incorrect. Please try again!";
+            Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
+
             PageGenerator pageGenerator = PageGenerator.instance();
-            String page = pageGenerator.getPage("add.html", new HashMap<>());
+            String page = pageGenerator.getPage("add.html", parameters);
+
             response.getWriter().write(page);
-            response.getWriter().write("Goods data is incorrect. Please try again!");
         }
     }
 

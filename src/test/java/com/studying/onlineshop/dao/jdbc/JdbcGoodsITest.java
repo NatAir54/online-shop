@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JdbcGoodsITest {
     @Test
     public void testFindAllReturnCorrectData() {
-        JdbcGoods jdbcGoods = new JdbcGoods();
+        GoodsDao jdbcGoods = new JdbcGoodsDao();
         List<Goods> clients = jdbcGoods.findAll();
         assertFalse(clients.isEmpty());
         for(Goods item : clients) {

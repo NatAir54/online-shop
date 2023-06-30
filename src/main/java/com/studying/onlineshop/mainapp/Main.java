@@ -1,6 +1,7 @@
 package com.studying.onlineshop.mainapp;
 
-import com.studying.onlineshop.dao.jdbc.JdbcGoods;
+import com.studying.onlineshop.dao.jdbc.GoodsDao;
+import com.studying.onlineshop.dao.jdbc.JdbcGoodsDao;
 import com.studying.onlineshop.service.GoodsService;
 import com.studying.onlineshop.web.servlet.AddRequestServlet;
 import com.studying.onlineshop.web.servlet.GoodsRequestsServlet;
@@ -13,7 +14,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        JdbcGoods jdbcGoods = new JdbcGoods();
+        GoodsDao jdbcGoods = new JdbcGoodsDao();
         GoodsService goodsService = new GoodsService(jdbcGoods);
 
         ShopRequestServlet shopRequestServlet = new ShopRequestServlet(goodsService);

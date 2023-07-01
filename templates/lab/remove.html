@@ -36,8 +36,13 @@
 <form action="/goods/remove" method="POST">
     <div align="center">
         <label>Id:</label>
-        <input type="text" name="id">
-        <input type="submit" value="Remove">
+        <select name="id">
+            <#list goods as good>
+                <option value="">--Please choose an option--</option>
+                <option value="${good.id}">${good.id}</option>
+            </#list>
+        </select>
+        <input type="submit" class="btn btn-dark" value="Remove">
     </div>
 </form>
 <br/>
@@ -50,6 +55,5 @@
         ${errorMessage}
     </div>
 </#if>
-
 </body>
 </html>

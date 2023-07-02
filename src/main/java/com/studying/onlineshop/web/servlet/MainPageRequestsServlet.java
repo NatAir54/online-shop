@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MainPageRequestsServlet extends HttpServlet {
-    private GoodsService goodsService;
+    private final GoodsService goodsService;
 
     public MainPageRequestsServlet(GoodsService goodsService) {
         this.goodsService = goodsService;

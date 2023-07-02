@@ -1,27 +1,22 @@
 h1 {
     color: #272044;
 }
-
 pre {
     color: blueviolet;
     padding: 0 0 24px;
     font-size: 19px;
 }
-
 body {
     font-family: Cerebri Sans, Helvetica, Arial, sans-serif;
     background-repeat: no-repeat;
     background-size: cover;
 }
-
 .btn {
     color: #007cb9;
 }
-
 .btn-logout {
     color: white;
 }
-
 button {
     border-radius: 20px;
     background-color: #885df1;
@@ -33,7 +28,6 @@ button {
     transition: all 250ms ease;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
-
 button:hover {
     color: blueviolet;
     background: #ffe121;

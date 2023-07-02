@@ -8,6 +8,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Starter {
@@ -17,12 +19,16 @@ public class Starter {
 
         MainPageRequestsServlet shopRequestServlet = new MainPageRequestsServlet(goodsService);
         GoodsRequestsServlet goodsRequestsServlet = new GoodsRequestsServlet(goodsService);
-        AddRequestsServlet addRequestServlet = new AddRequestsServlet(goodsService);
-        UpdateRequestsServlet updateRequestsServlet = new UpdateRequestsServlet(goodsService);
-        RemoveRequestsServlet removeRequestsServlet = new RemoveRequestsServlet(goodsService);
+
+        List<String> userTokens = new ArrayList<>();
+        LoginServlet loginRequestsServlet = new LoginServlet(userTokens);
+        AddRequestsServlet addRequestServlet = new AddRequestsServlet(goodsService, userTokens);
+        UpdateRequestsServlet updateRequestsServlet = new UpdateRequestsServlet(goodsService, userTokens);
+        RemoveRequestsServlet removeRequestsServlet = new RemoveRequestsServlet(goodsService, userTokens);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(shopRequestServlet), "");
+        context.addServlet(new ServletHolder(shopRequestServlet), "/");
+        context.addServlet(new ServletHolder(loginRequestsServlet), "/login");
         context.addServlet(new ServletHolder(goodsRequestsServlet), "/goods/");
         context.addServlet(new ServletHolder(addRequestServlet), "/goods/add");
         context.addServlet(new ServletHolder(updateRequestsServlet), "/goods/update");

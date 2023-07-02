@@ -4,6 +4,7 @@ import com.studying.onlineshop.entity.Goods;
 import com.studying.onlineshop.service.GoodsService;
 import com.studying.onlineshop.web.util.PageGenerator;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,20 +14,38 @@ import java.util.List;
 import java.util.Map;
 
 public class RemoveRequestsServlet extends HttpServlet {
-    private GoodsService goodsService;
+    private final GoodsService goodsService;
+    private final PageGenerator pageGenerator = PageGenerator.instance();
+    private final List<String> userTokens;
 
-    public RemoveRequestsServlet(GoodsService goodsService) {
+    public RemoveRequestsServlet(GoodsService goodsService, List<String> userTokens) {
         this.goodsService = goodsService;
+        this.userTokens = userTokens;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Goods> goods = goodsService.findAll();
-        PageGenerator instance = PageGenerator.instance();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("goods", goods);
-        String page = instance.getPage("remove.html", hashMap);
+        boolean isAuth = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user-token")) {
+                    if (userTokens.contains(cookie.getValue())) {
+                        isAuth = true;
+                    }
+                    break;
+                }
+            }
+        }
 
-        response.getWriter().write(page);
+        if (isAuth) {
+            List<Goods> goods = goodsService.findAll();
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("goods", goods);
+            String page = pageGenerator.getPage("remove.html", hashMap);
+            response.getWriter().write(page);
+        } else {
+            response.sendRedirect("/login");
+        }
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,10 +56,7 @@ public class RemoveRequestsServlet extends HttpServlet {
         } catch (Exception e) {
             String errorMessage = "Goods id is incorrect. Please try again!";
             Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-
-            PageGenerator pageGenerator = PageGenerator.instance();
             String page = pageGenerator.getPage("remove.html", parameters);
-
             response.getWriter().write(page);
         }
     }

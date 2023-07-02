@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>online-shop</title>
+    <style>
+        h1 {
+            color: #272044;
+        }
+        pre {
+            color: blueviolet;
+            padding: 0 0 24px;
+            font-size: 19px;
+        }
+        body {
+            font-family: Cerebri Sans, Helvetica, Arial, sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .btn {
+            color: #007cb9;
+        }
+        .btn-logout {
+            color: white;
+        }
+        button {
+            border-radius: 20px;
+            background-color: #885df1;
+            border: 1px solid #885df1;
+            font-size: 16px;
+            line-height: 22px;
+            padding: 10px 16px;
+            text-decoration: none;
+            transition: all 250ms ease;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        button:hover {
+            color: blueviolet;
+            background: #ffe121;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body background="images/goods.png">
+    <form action="/login" method="POST">
+        <div>
+            <a href="/login" class="btn btn-login">Login</a>
+        </div>
+    </form>
+    <h1>Hey, welcome! :)</h1>
+    <pre>Please, do what you wanna do!
+            Add products, change them or remove.
+            Whatever you want.</pre>
+    <br/>
+    <div>
+        <div>
+            <a href="/goods/" class="btn btn-goods" target="_blank">Goods</a>
+        </div><br/>
+        <div>
+            <a href="/goods/add" class="btn btn-add" target="_blank">Add</a>
+        </div><br/>
+        <div>
+            <a href="/goods/remove" class="btn btn-remove" target="_blank">Remove</a>
+        </div><br/>
+        <div>
+            <a href="/goods/update" class="btn btn-update" target="_blank">Update</a>
+        </div><br/>
+    </div><br/>
+    <form action="/" method="POST">
+        <button type="submit" class="btn btn-logout">Logout</button>
+    </form>
+</body>
+</html>

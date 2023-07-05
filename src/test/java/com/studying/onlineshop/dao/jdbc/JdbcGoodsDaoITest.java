@@ -1,5 +1,6 @@
 package com.studying.onlineshop.dao.jdbc;
 
+import com.studying.onlineshop.dao.GoodsDao;
 import com.studying.onlineshop.entity.Goods;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JdbcGoodsITest {
+class JdbcGoodsDaoITest {
     @Test
     public void testFindAllReturnCorrectData() {
         GoodsDao jdbcGoods = new JdbcGoodsDao();

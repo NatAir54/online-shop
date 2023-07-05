@@ -22,16 +22,19 @@
         .btn {
             color: #007cb9;
         }
+        .btn-signup {
+            color: pink;
+        }
         .btn-logout {
             color: white;
         }
         button {
-            border-radius: 20px;
+            border-radius: 19px;
             background-color: #885df1;
             border: 1px solid #885df1;
             font-size: 16px;
             line-height: 22px;
-            padding: 10px 16px;
+            padding: 9px 14px;
             text-decoration: none;
             transition: all 250ms ease;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
@@ -45,6 +48,11 @@
 </head>
 
 <body background="images/goods.png">
+    <form action="/signup" method="POST">
+        <div>
+            <a href="/signup" class="btn btn-signup">Sign up</a>
+        </div>
+    </form><br/>
     <form action="/login" method="POST">
         <div>
             <a href="/login" class="btn btn-login">Login</a>
@@ -69,8 +77,9 @@
             <a href="/goods/update" class="btn btn-update" target="_blank">Update</a>
         </div><br/>
     </div><br/>
-    <form action="/" method="POST">
-        <button type="submit" class="btn btn-logout">Logout</button>
+
+    <form action="/logout" method="POST">
+        <button type="submit" class="btn btn-logout">Log out</button>
     </form>
 </body>
 </html>

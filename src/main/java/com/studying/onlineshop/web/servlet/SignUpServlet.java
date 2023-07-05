@@ -5,49 +5,44 @@ import com.studying.onlineshop.service.ClientService;
 import com.studying.onlineshop.service.SecurityService;
 import com.studying.onlineshop.web.util.PageGenerator;
 import com.studying.onlineshop.web.util.WebUtil;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-
-public class LoginServlet extends HttpServlet {
-    private final ClientService clientService;
+public class SignUpServlet extends HttpServlet {
     private final SecurityService securityService;
+    private final ClientService clientService;
     private final PageGenerator pageGenerator = PageGenerator.instance();
 
-
-    public LoginServlet(ClientService clientService, SecurityService securityService) {
-        this.clientService = clientService;
+    public SignUpServlet(SecurityService securityService, ClientService clientService) {
         this.securityService = securityService;
+        this.clientService = clientService;
     }
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String page = pageGenerator.getPage("login.html");
+        String page = pageGenerator.getPage("signup.html");
         response.getWriter().write(page);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Client client = WebUtil.getClient(request);
-        if (clientService.findClient(client.getEmail()) != null) {
-            String userToken = securityService.login(client);
-            if (userToken != null) {
-                Cookie cookie = new Cookie("user-token", userToken);
-                response.addCookie(cookie);
+        try {
+            Client client = WebUtil.getClient(request);
+            if (clientService.findClient(client.getEmail()) == null) {
+                securityService.signup(client);
                 response.sendRedirect("/");
             } else {
-                String errorMessage = "Password is incorrect!";
+                String errorMessage = "Email is registered already. Login please!";
                 Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-                String page = pageGenerator.getPage("login.html", parameters);
+                String page = pageGenerator.getPage("signup.html", parameters);
                 response.getWriter().write(page);
             }
-        } else {
-            String errorMessage = "Email address is incorrect or not registered yet. Sign up please!";
+        } catch (Exception e) {
+            String errorMessage = "Data is incorrect. Please try again!";
             Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-            String page = pageGenerator.getPage("login.html", parameters);
+            String page = pageGenerator.getPage("signup.html", parameters);
             response.getWriter().write(page);
         }
     }

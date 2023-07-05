@@ -2,41 +2,28 @@ package com.studying.onlineshop.web.servlet;
 
 import com.studying.onlineshop.entity.Goods;
 import com.studying.onlineshop.service.GoodsService;
+import com.studying.onlineshop.service.SecurityService;
 import com.studying.onlineshop.web.util.PageGenerator;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RemoveRequestsServlet extends HttpServlet {
+public class RemoveGoodsServlet extends HttpServlet {
     private final GoodsService goodsService;
+    private final SecurityService securityService;
     private final PageGenerator pageGenerator = PageGenerator.instance();
-    private final List<String> userTokens;
 
-    public RemoveRequestsServlet(GoodsService goodsService, List<String> userTokens) {
+    public RemoveGoodsServlet(GoodsService goodsService, SecurityService securityService) {
         this.goodsService = goodsService;
-        this.userTokens = userTokens;
+        this.securityService = securityService;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        boolean isAuth = false;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user-token")) {
-                    if (userTokens.contains(cookie.getValue())) {
-                        isAuth = true;
-                    }
-                    break;
-                }
-            }
-        }
-
+        boolean isAuth = securityService.isClientAuth(request);
         if (isAuth) {
             List<Goods> goods = goodsService.findAll();
             HashMap<String, Object> hashMap = new HashMap<>();

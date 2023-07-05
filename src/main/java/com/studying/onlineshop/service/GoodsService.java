@@ -1,12 +1,13 @@
 package com.studying.onlineshop.service;
 
-import com.studying.onlineshop.dao.jdbc.GoodsDao;
+import com.studying.onlineshop.dao.GoodsDao;
 import com.studying.onlineshop.entity.Goods;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class GoodsService {
-    private GoodsDao jdbcGoods;
+    private final GoodsDao jdbcGoods;
 
     public GoodsService(GoodsDao jdbcGoods) {
         this.jdbcGoods = jdbcGoods;

@@ -1,4 +1,4 @@
-package com.studying.onlineshop.dao.jdbc;
+package com.studying.onlineshop.dao;
 
 import com.studying.onlineshop.entity.Goods;
 

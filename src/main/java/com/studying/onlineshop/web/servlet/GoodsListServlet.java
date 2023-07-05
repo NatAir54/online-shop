@@ -3,17 +3,17 @@ package com.studying.onlineshop.web.servlet;
 import com.studying.onlineshop.entity.Goods;
 import com.studying.onlineshop.service.GoodsService;
 import com.studying.onlineshop.web.util.PageGenerator;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-public class GoodsRequestsServlet extends HttpServlet {
+public class GoodsListServlet extends HttpServlet {
     private final GoodsService goodsService;
 
-    public GoodsRequestsServlet(GoodsService goodsService) {
+    public GoodsListServlet(GoodsService goodsService) {
         this.goodsService = goodsService;
     }
 

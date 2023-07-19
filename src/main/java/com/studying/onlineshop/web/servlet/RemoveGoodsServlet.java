@@ -2,7 +2,6 @@ package com.studying.onlineshop.web.servlet;
 
 import com.studying.onlineshop.entity.Goods;
 import com.studying.onlineshop.service.GoodsService;
-import com.studying.onlineshop.service.SecurityService;
 import com.studying.onlineshop.web.util.PageGenerator;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,25 +13,18 @@ import java.util.Map;
 
 public class RemoveGoodsServlet extends HttpServlet {
     private final GoodsService goodsService;
-    private final SecurityService securityService;
     private final PageGenerator pageGenerator = PageGenerator.instance();
 
-    public RemoveGoodsServlet(GoodsService goodsService, SecurityService securityService) {
+    public RemoveGoodsServlet(GoodsService goodsService) {
         this.goodsService = goodsService;
-        this.securityService = securityService;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        boolean isAuth = securityService.isClientAuth(request);
-        if (isAuth) {
-            List<Goods> goods = goodsService.findAll();
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("goods", goods);
-            String page = pageGenerator.getPage("remove.html", hashMap);
-            response.getWriter().write(page);
-        } else {
-            response.sendRedirect("/login");
-        }
+        List<Goods> goods = goodsService.findAll();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("goods", goods);
+        String page = pageGenerator.getPage("remove.html", hashMap);
+        response.getWriter().write(page);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

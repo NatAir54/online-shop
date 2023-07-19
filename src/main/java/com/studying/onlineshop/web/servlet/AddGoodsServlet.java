@@ -2,7 +2,6 @@ package com.studying.onlineshop.web.servlet;
 
 import com.studying.onlineshop.entity.Goods;
 import com.studying.onlineshop.service.GoodsService;
-import com.studying.onlineshop.service.SecurityService;
 import com.studying.onlineshop.web.util.PageGenerator;
 import com.studying.onlineshop.web.util.WebUtil;
 import jakarta.servlet.http.HttpServlet;
@@ -13,22 +12,15 @@ import java.util.Map;
 
 public class AddGoodsServlet extends HttpServlet {
     private final GoodsService goodsService;
-    private final SecurityService securityService;
     private final PageGenerator pageGenerator = PageGenerator.instance();
 
-    public AddGoodsServlet(GoodsService goodsService, SecurityService securityService) {
+    public AddGoodsServlet(GoodsService goodsService) {
         this.goodsService = goodsService;
-        this.securityService = securityService;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        boolean isAuth = securityService.isClientAuth(request);
-        if (isAuth) {
-            String page = pageGenerator.getPage("add.html");
-            response.getWriter().write(page);
-        } else {
-            response.sendRedirect("/login");
-        }
+        String page = pageGenerator.getPage("add.html");
+        response.getWriter().write(page);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

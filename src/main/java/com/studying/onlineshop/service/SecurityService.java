@@ -4,19 +4,19 @@ import com.studying.onlineshop.entity.Client;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.digest.DigestUtils;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 
 public class SecurityService {
     private final ClientService clientService;
-    private final List<String> clientTokens;
+    private final List<String> clientTokens = Collections.synchronizedList(new ArrayList<>());
 
 
-    public SecurityService(ClientService clientService, List<String> clientTokens) {
+    public SecurityService(ClientService clientService) {
         this.clientService = clientService;
-        this.clientTokens = clientTokens;
     }
 
     public void signup(Client client) {
@@ -43,9 +43,7 @@ public class SecurityService {
 
     public String login(Client client) {
         if (isPasswordCorrect(client)) {
-            String userToken = UUID.randomUUID().toString();
-            clientTokens.add(userToken);
-            return userToken;
+            return generateToken();
         } else {
             return null;
         }
@@ -53,6 +51,12 @@ public class SecurityService {
 
     public void logout(Client client) {
 
+    }
+
+    private String generateToken() {
+        String userToken = UUID.randomUUID().toString();
+        clientTokens.add(userToken);
+        return userToken;
     }
 
     private boolean isPasswordCorrect(Client loginClient) {

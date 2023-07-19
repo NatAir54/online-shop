@@ -26,7 +26,7 @@ public class Starter {
         ClientService clientService = new ClientService(clientDao);
         SecurityService securityService =  new SecurityService(clientService);
 
-        MainPageServlet mainPageServlet = new MainPageServlet(goodsService);
+        MainPageServlet mainPageServlet = new MainPageServlet();
         GoodsListServlet goodsRequestsServlet = new GoodsListServlet(goodsService);
         SignUpServlet signUpServlet = new SignUpServlet(securityService, clientService);
         LoginServlet loginRequestsServlet = new LoginServlet(clientService, securityService);

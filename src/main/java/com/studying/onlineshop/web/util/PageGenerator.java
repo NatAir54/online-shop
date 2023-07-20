@@ -24,7 +24,11 @@ public class PageGenerator {
     public String getPage(String fileName, Map<String, Object> data) {
         Writer stream = new StringWriter();
         try {
-            Template template = cfg.getTemplate(HTML_DIR + File.separator + fileName);
+            cfg.setDirectoryForTemplateLoading(new File(HTML_DIR));
+            cfg.setDefaultEncoding("UTF-8");
+
+            Template template = cfg.getTemplate(fileName);
+
             template.process(data, stream);
         } catch (IOException | TemplateException e) {
             throw new RuntimeException(e);
@@ -37,6 +41,6 @@ public class PageGenerator {
     }
 
     private PageGenerator() {
-        cfg = new Configuration();
+        cfg = new Configuration(Configuration.VERSION_2_3_31);
     }
 }

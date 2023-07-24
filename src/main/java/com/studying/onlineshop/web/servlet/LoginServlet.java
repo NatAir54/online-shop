@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Client client = WebUtil.getClient(request);
-        if (clientService.findClient(client.getEmail()) != null) {
+        if (clientService.findByEmail(client.getEmail()) != null) {
             String userToken = securityService.login(client);
             if (userToken != null) {
                 Cookie cookie = new Cookie("user-token", userToken);

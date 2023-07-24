@@ -2,6 +2,7 @@ package com.studying.onlineshop.web.filter;
 
 import com.studying.onlineshop.service.SecurityService;
 import jakarta.servlet.*;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,7 +31,9 @@ public class SecurityFilter implements Filter {
             }
         }
 
-        if (securityService.isClientAuth(httpServletRequest)) {
+        Cookie[] cookies = httpServletRequest.getCookies();
+
+        if (securityService.isClientAuth(cookies)) {
             filterChain.doFilter(request, response);
         } else {
             httpServletResponse.sendRedirect("/login");

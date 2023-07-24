@@ -30,7 +30,7 @@ public class SignUpServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Client client = WebUtil.getClient(request);
-            if (clientService.findClient(client.getEmail()) == null) {
+            if (clientService.findByEmail(client.getEmail()) == null) {
                 securityService.signup(client);
                 response.sendRedirect("/");
             } else {

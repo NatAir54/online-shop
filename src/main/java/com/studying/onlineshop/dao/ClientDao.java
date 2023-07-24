@@ -9,5 +9,5 @@ public interface ClientDao {
 
     void add(Client client);
 
-    Client findClient(String email);
+    Client findByEmail(String email);
 }

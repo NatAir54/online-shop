@@ -24,7 +24,7 @@ public class ClientService {
         return jdbcClient.findAll();
     }
 
-    public Client findClient(String email) {
-        return jdbcClient.findClient(email);
+    public Client findByEmail(String email) {
+        return jdbcClient.findByEmail(email);
     }
 }

@@ -53,7 +53,7 @@ public class JdbcClientDao implements ClientDao {
         }
     }
 
-    public Client findClient(String email) {
+    public Client findByEmail(String email) {
         List<Client> list = findAll();
         for (Client dbClient : list) {
             if (Objects.equals(dbClient.getEmail(), email)) {

@@ -2,12 +2,11 @@ package com.studying.onlineshop.service;
 
 import com.studying.onlineshop.entity.Client;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.digest.DigestUtils;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
+import java.util.*;
 
 
 public class SecurityService {
@@ -19,16 +18,15 @@ public class SecurityService {
         this.clientService = clientService;
     }
 
-    public void signup(Client client) {
-        String sole = UUID.randomUUID().toString();
+    public void signup(Client client) throws NoSuchAlgorithmException, NoSuchProviderException {
+        String sole = generateSole();
         client.setSole(sole);
         String hashPassword = DigestUtils.md5Hex(client.getSole() + client.getPassword());
         client.setPassword(hashPassword);
         clientService.add(client);
     }
 
-    public boolean isClientAuth(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
+    public boolean isClientAuth(Cookie[] cookies) {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("user-token")) {
@@ -54,13 +52,15 @@ public class SecurityService {
     }
 
     private String generateToken() {
+        // need to add logback
+
         String userToken = UUID.randomUUID().toString();
         clientTokens.add(userToken);
         return userToken;
     }
 
     private boolean isPasswordCorrect(Client loginClient) {
-        Client dbClient = clientService.findClient(loginClient.getEmail());
+        Client dbClient = clientService.findByEmail(loginClient.getEmail());
         if (dbClient != null) {
             String hashPassword = DigestUtils.md5Hex(dbClient.getSole() + loginClient.getPassword());
             if (dbClient.getPassword().equals(hashPassword)) {
@@ -68,5 +68,12 @@ public class SecurityService {
             }
         }
         return false;
+    }
+
+    private String generateSole() throws NoSuchAlgorithmException, NoSuchProviderException {
+        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        byte[] soleBytes = new byte[16];
+        secureRandom.nextBytes(soleBytes);
+        return Arrays.toString(soleBytes);
     }
 }

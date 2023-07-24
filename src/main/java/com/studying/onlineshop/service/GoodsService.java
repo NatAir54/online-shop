@@ -7,27 +7,27 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class GoodsService {
-    private final GoodsDao jdbcGoods;
+    private final GoodsDao JDBC_GOODS;
 
     public GoodsService(GoodsDao jdbcGoods) {
-        this.jdbcGoods = jdbcGoods;
+        this.JDBC_GOODS = jdbcGoods;
     }
 
     public List<Goods> findAll() {
-        return jdbcGoods.findAll();
+        return JDBC_GOODS.findAll();
     }
 
     public void add(Goods item) {
         item.setDate(LocalDateTime.now());
-        jdbcGoods.add(item);
+        JDBC_GOODS.add(item);
     }
 
     public void update(Goods item, int id) {
         item.setDate(LocalDateTime.now());
-        jdbcGoods.update(item, id);
+        JDBC_GOODS.update(item, id);
     }
 
     public void remove(int id) {
-        jdbcGoods.remove(id);
+        JDBC_GOODS.remove(id);
     }
 }

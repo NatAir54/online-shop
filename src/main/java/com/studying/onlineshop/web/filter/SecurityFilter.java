@@ -10,11 +10,11 @@ import java.util.List;
 
 
 public class SecurityFilter implements Filter {
-    private final SecurityService securityService;
-    private final List<String> freePaths = List.of("/", "/signup", "/login", "logout");
+    private final SecurityService SECURITY_SERVICE;
+    private final List<String> FREE_PATHS = List.of("/", "/signup", "/login", "logout");
 
     public SecurityFilter(SecurityService securityService) {
-        this.securityService = securityService;
+        this.SECURITY_SERVICE = securityService;
     }
 
 
@@ -24,7 +24,7 @@ public class SecurityFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
         String requestURI = httpServletRequest.getRequestURI();
-        for (String freePath : freePaths) {
+        for (String freePath : FREE_PATHS) {
             if(requestURI.endsWith(freePath)) {
                 filterChain.doFilter(request, response);
                 return;
@@ -33,7 +33,7 @@ public class SecurityFilter implements Filter {
 
         Cookie[] cookies = httpServletRequest.getCookies();
 
-        if (securityService.isClientAuth(cookies)) {
+        if (SECURITY_SERVICE.isClientAuth(cookies)) {
             filterChain.doFilter(request, response);
         } else {
             httpServletResponse.sendRedirect("/login");

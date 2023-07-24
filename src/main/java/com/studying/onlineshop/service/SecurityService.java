@@ -10,12 +10,12 @@ import java.util.*;
 
 
 public class SecurityService {
-    private final ClientService clientService;
-    private final List<String> clientTokens = Collections.synchronizedList(new ArrayList<>());
+    private final ClientService CLIENT_SERVICE;
+    private final List<String> CLIENT_TOKENS = Collections.synchronizedList(new ArrayList<>());
 
 
     public SecurityService(ClientService clientService) {
-        this.clientService = clientService;
+        this.CLIENT_SERVICE = clientService;
     }
 
     public void signup(Client client) throws NoSuchAlgorithmException, NoSuchProviderException {
@@ -23,14 +23,14 @@ public class SecurityService {
         client.setSole(sole);
         String hashPassword = DigestUtils.md5Hex(client.getSole() + client.getPassword());
         client.setPassword(hashPassword);
-        clientService.add(client);
+        CLIENT_SERVICE.add(client);
     }
 
     public boolean isClientAuth(Cookie[] cookies) {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("user-token")) {
-                    if (clientTokens.contains(cookie.getValue())) {
+                    if (CLIENT_TOKENS.contains(cookie.getValue())) {
                         return true;
                     }
                 }
@@ -55,12 +55,12 @@ public class SecurityService {
         // need to add logback
 
         String userToken = UUID.randomUUID().toString();
-        clientTokens.add(userToken);
+        CLIENT_TOKENS.add(userToken);
         return userToken;
     }
 
     private boolean isPasswordCorrect(Client loginClient) {
-        Client dbClient = clientService.findByEmail(loginClient.getEmail());
+        Client dbClient = CLIENT_SERVICE.findByEmail(loginClient.getEmail());
         if (dbClient != null) {
             String hashPassword = DigestUtils.md5Hex(dbClient.getSole() + loginClient.getPassword());
             if (dbClient.getPassword().equals(hashPassword)) {

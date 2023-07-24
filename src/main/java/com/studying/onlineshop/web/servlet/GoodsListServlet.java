@@ -11,14 +11,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GoodsListServlet extends HttpServlet {
-    private final GoodsService goodsService;
+    private final GoodsService GOODS_SERVICE;
 
     public GoodsListServlet(GoodsService goodsService) {
-        this.goodsService = goodsService;
+        this.GOODS_SERVICE = goodsService;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Goods> goods = goodsService.findAll();
+        List<Goods> goods = GOODS_SERVICE.findAll();
         PageGenerator instance = PageGenerator.instance();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("goods", goods);

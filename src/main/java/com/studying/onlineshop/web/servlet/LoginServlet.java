@@ -14,26 +14,26 @@ import java.util.Map;
 
 
 public class LoginServlet extends HttpServlet {
-    private final ClientService clientService;
-    private final SecurityService securityService;
-    private final PageGenerator pageGenerator = PageGenerator.instance();
+    private final ClientService CLIENT_SERVICE;
+    private final SecurityService SECURITY_SERVICE;
+    private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
 
 
     public LoginServlet(ClientService clientService, SecurityService securityService) {
-        this.clientService = clientService;
-        this.securityService = securityService;
+        this.CLIENT_SERVICE = clientService;
+        this.SECURITY_SERVICE = securityService;
     }
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String page = pageGenerator.getPage("login.html");
+        String page = PAGE_GENERATOR.getPage("login.html");
         response.getWriter().write(page);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Client client = WebUtil.getClient(request);
-        if (clientService.findByEmail(client.getEmail()) != null) {
-            String userToken = securityService.login(client);
+        if (CLIENT_SERVICE.findByEmail(client.getEmail()) != null) {
+            String userToken = SECURITY_SERVICE.login(client);
             if (userToken != null) {
                 Cookie cookie = new Cookie("user-token", userToken);
                 response.addCookie(cookie);
@@ -41,13 +41,13 @@ public class LoginServlet extends HttpServlet {
             } else {
                 String errorMessage = "Password is incorrect!";
                 Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-                String page = pageGenerator.getPage("login.html", parameters);
+                String page = PAGE_GENERATOR.getPage("login.html", parameters);
                 response.getWriter().write(page);
             }
         } else {
             String errorMessage = "Email address is incorrect or not registered yet. Sign up please!";
             Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-            String page = pageGenerator.getPage("login.html", parameters);
+            String page = PAGE_GENERATOR.getPage("login.html", parameters);
             response.getWriter().write(page);
         }
     }

@@ -12,30 +12,30 @@ import java.util.List;
 import java.util.Map;
 
 public class RemoveGoodsServlet extends HttpServlet {
-    private final GoodsService goodsService;
-    private final PageGenerator pageGenerator = PageGenerator.instance();
+    private final GoodsService GOODS_SERVICE;
+    private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
 
     public RemoveGoodsServlet(GoodsService goodsService) {
-        this.goodsService = goodsService;
+        this.GOODS_SERVICE = goodsService;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Goods> goods = goodsService.findAll();
+        List<Goods> goods = GOODS_SERVICE.findAll();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("goods", goods);
-        String page = pageGenerator.getPage("remove.html", hashMap);
+        String page = PAGE_GENERATOR.getPage("remove.html", hashMap);
         response.getWriter().write(page);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             int idForRemove = Integer.parseInt(request.getParameter("id"));
-            goodsService.remove(idForRemove);
+            GOODS_SERVICE.remove(idForRemove);
             response.sendRedirect("/goods/");
         } catch (Exception e) {
             String errorMessage = "Goods id is incorrect. Please try again!";
             Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-            String page = pageGenerator.getPage("remove.html", parameters);
+            String page = PAGE_GENERATOR.getPage("remove.html", parameters);
             response.getWriter().write(page);
         }
     }

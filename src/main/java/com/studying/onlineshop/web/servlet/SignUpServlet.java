@@ -12,37 +12,37 @@ import java.io.IOException;
 import java.util.Map;
 
 public class SignUpServlet extends HttpServlet {
-    private final SecurityService securityService;
-    private final ClientService clientService;
-    private final PageGenerator pageGenerator = PageGenerator.instance();
+    private final SecurityService SECURITY_SERVICE;
+    private final ClientService CLIENT_SERVICE;
+    private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
 
     public SignUpServlet(SecurityService securityService, ClientService clientService) {
-        this.securityService = securityService;
-        this.clientService = clientService;
+        this.SECURITY_SERVICE = securityService;
+        this.CLIENT_SERVICE = clientService;
     }
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String page = pageGenerator.getPage("signup.html");
+        String page = PAGE_GENERATOR.getPage("signup.html");
         response.getWriter().write(page);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Client client = WebUtil.getClient(request);
-            if (clientService.findByEmail(client.getEmail()) == null) {
-                securityService.signup(client);
+            if (CLIENT_SERVICE.findByEmail(client.getEmail()) == null) {
+                SECURITY_SERVICE.signup(client);
                 response.sendRedirect("/");
             } else {
                 String errorMessage = "Email is registered already. Login please!";
                 Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-                String page = pageGenerator.getPage("signup.html", parameters);
+                String page = PAGE_GENERATOR.getPage("signup.html", parameters);
                 response.getWriter().write(page);
             }
         } catch (Exception e) {
             String errorMessage = "Data is incorrect. Please try again!";
             Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-            String page = pageGenerator.getPage("signup.html", parameters);
+            String page = PAGE_GENERATOR.getPage("signup.html", parameters);
             response.getWriter().write(page);
         }
     }

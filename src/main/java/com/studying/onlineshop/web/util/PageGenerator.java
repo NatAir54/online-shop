@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PageGenerator {
     private static PageGenerator pageGenerator;
-    private final Configuration cfg;
+    private final Configuration CFG;
 
     public static PageGenerator instance() {
         if (pageGenerator == null)
@@ -22,10 +22,10 @@ public class PageGenerator {
     public String getPage(String fileName, Map<String, Object> data) {
         Writer stream = new StringWriter();
         try {
-            cfg.setClassForTemplateLoading(PageGenerator.class, "/templates");
-            cfg.setDefaultEncoding("UTF-8");
+            CFG.setClassForTemplateLoading(PageGenerator.class, "/templates");
+            CFG.setDefaultEncoding("UTF-8");
 
-            Template template = cfg.getTemplate(fileName);
+            Template template = CFG.getTemplate(fileName);
 
             template.process(data, stream);
         } catch (IOException | TemplateException e) {
@@ -39,6 +39,6 @@ public class PageGenerator {
     }
 
     private PageGenerator() {
-        cfg = new Configuration(Configuration.VERSION_2_3_31);
+        CFG = new Configuration(Configuration.VERSION_2_3_31);
     }
 }

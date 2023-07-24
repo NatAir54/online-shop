@@ -13,18 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 public class UpdateGoodsServlet extends HttpServlet {
-    private final GoodsService goodsService;
-    private final PageGenerator pageGenerator = PageGenerator.instance();
+    private final GoodsService GOODS_SERVICE;
+    private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
 
     public UpdateGoodsServlet(GoodsService goodsService) {
-        this.goodsService = goodsService;
+        this.GOODS_SERVICE = goodsService;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Goods> goods = goodsService.findAll();
+        List<Goods> goods = GOODS_SERVICE.findAll();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("goods", goods);
-        String page = pageGenerator.getPage("update.html", hashMap);
+        String page = PAGE_GENERATOR.getPage("update.html", hashMap);
         response.getWriter().write(page);
     }
 
@@ -32,12 +32,12 @@ public class UpdateGoodsServlet extends HttpServlet {
         try {
             Goods good = WebUtil.getGoods(request);
             int idRequested = Integer.parseInt(request.getParameter("id"));
-            goodsService.update(good, idRequested);
+            GOODS_SERVICE.update(good, idRequested);
             response.sendRedirect("/goods/");
         } catch (Exception e) {
             String errorMessage = "Goods data is incorrect. Please try again!";
             Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
-            String page = pageGenerator.getPage("update.html", parameters);
+            String page = PAGE_GENERATOR.getPage("update.html", parameters);
             response.getWriter().write(page);
         }
     }

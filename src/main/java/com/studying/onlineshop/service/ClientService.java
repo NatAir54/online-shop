@@ -8,23 +8,23 @@ import java.util.List;
 
 @Getter
 public class ClientService {
-    private final ClientDao jdbcClient;
+    private final ClientDao JDBC_CLIENT;
 
 
     public ClientService(ClientDao jdbcClient) {
-        this.jdbcClient = jdbcClient;
+        this.JDBC_CLIENT = jdbcClient;
     }
 
 
     public void add(Client client) {
-        jdbcClient.add(client);
+        JDBC_CLIENT.add(client);
     }
 
     public List<Client> findAll() {
-        return jdbcClient.findAll();
+        return JDBC_CLIENT.findAll();
     }
 
     public Client findByEmail(String email) {
-        return jdbcClient.findByEmail(email);
+        return JDBC_CLIENT.findByEmail(email);
     }
 }

@@ -41,6 +41,7 @@ public class SignUpServlet extends HttpServlet {
             }
         } catch (Exception e) {
             String errorMessage = "Data is incorrect. Please try again!";
+            e.printStackTrace();
             Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
             String page = PAGE_GENERATOR.getPage("signup.html", parameters);
             response.getWriter().write(page);

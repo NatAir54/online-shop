@@ -12,7 +12,7 @@ import java.util.Objects;
 public class JdbcClientDao implements ClientDao {
     private static final ClientRowMapper CLIENT_ROW_MAPPER = new ClientRowMapper();
     private static final String SQL_CREATE_TABLE = """
-            CREATE TABLE clients (id SERIAL PRIMARY KEY, email varchar(50) NOT NULL, password varchar(50) NOT NULL, sole varchar(50) NOT NULL);""";
+            CREATE TABLE clients (id SERIAL PRIMARY KEY, email varchar(50) NOT NULL, password varchar(50) NOT NULL, sole varchar(150) NOT NULL);""";
     private static final String SQL_INSERT_INTO = "INSERT INTO clients (email, password, sole) VALUES (?, ?, ?);";
     private static final String SQL_FIND_ALL = "SELECT id, email, password, sole FROM clients;";
 
@@ -63,7 +63,7 @@ public class JdbcClientDao implements ClientDao {
         return null;
     }
 
-    private void createTable() {
+    public void createTable() {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_TABLE)) {
             preparedStatement.executeUpdate();

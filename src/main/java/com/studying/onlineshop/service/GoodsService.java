@@ -7,7 +7,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class GoodsService {
-    private final GoodsDao JDBC_GOODS;
+    private GoodsDao JDBC_GOODS;
+
+    public GoodsService() {
+    }
 
     public GoodsService(GoodsDao jdbcGoods) {
         this.JDBC_GOODS = jdbcGoods;

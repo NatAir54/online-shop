@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 public class RemoveGoodsServlet extends HttpServlet {
-    private final GoodsService GOODS_SERVICE;
+    private GoodsService GOODS_SERVICE;
     private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
+
+    public RemoveGoodsServlet() {
+    }
 
     public RemoveGoodsServlet(GoodsService goodsService) {
         this.GOODS_SERVICE = goodsService;

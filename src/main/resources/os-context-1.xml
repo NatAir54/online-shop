@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <bean id="jdbcGoods" class="com.studying.onlineshop.dao.jdbc.JdbcGoodsDao"> </bean>
+
+    <bean id="clientDao" class="com.studying.onlineshop.dao.jdbc.JdbcClientDao"> </bean>
+</beans>

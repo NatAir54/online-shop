@@ -8,8 +8,10 @@ import java.util.List;
 
 @Getter
 public class ClientService {
-    private final ClientDao JDBC_CLIENT;
+    private ClientDao JDBC_CLIENT;
 
+    public ClientService() {
+    }
 
     public ClientService(ClientDao jdbcClient) {
         this.JDBC_CLIENT = jdbcClient;

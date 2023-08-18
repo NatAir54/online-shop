@@ -11,7 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GoodsListServlet extends HttpServlet {
-    private final GoodsService GOODS_SERVICE;
+    private GoodsService GOODS_SERVICE;
+
+    public GoodsListServlet() {
+    }
 
     public GoodsListServlet(GoodsService goodsService) {
         this.GOODS_SERVICE = goodsService;

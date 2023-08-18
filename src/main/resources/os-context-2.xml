@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+
+    <bean id="goodsService" class="com.studying.onlineshop.service.GoodsService">
+        <constructor-arg ref="jdbcGoods"/>
+    </bean>
+
+    <bean id="clientService" class="com.studying.onlineshop.service.ClientService">
+        <constructor-arg ref="clientDao"/>
+    </bean>
+
+    <bean id="securityService" class="com.studying.onlineshop.service.SecurityService">
+        <constructor-arg ref="clientService"/>
+    </bean>
+
+    <bean id="goodsRequestsServlet" class="com.studying.onlineshop.web.servlet.GoodsListServlet">
+        <constructor-arg ref="goodsService"/>
+    </bean>
+
+    <bean id="addRequestServlet" class="com.studying.onlineshop.web.servlet.AddGoodsServlet">
+        <constructor-arg ref="goodsService"/>
+    </bean>
+
+    <bean id="updateRequestsServlet" class="com.studying.onlineshop.web.servlet.UpdateGoodsServlet">
+        <constructor-arg ref="goodsService"/>
+    </bean>
+
+    <bean id="removeRequestsServlet" class="com.studying.onlineshop.web.servlet.RemoveGoodsServlet">
+        <constructor-arg ref="goodsService"/>
+    </bean>
+
+</beans>

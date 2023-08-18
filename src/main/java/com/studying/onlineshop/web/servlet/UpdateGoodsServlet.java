@@ -13,8 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 public class UpdateGoodsServlet extends HttpServlet {
-    private final GoodsService GOODS_SERVICE;
+    private GoodsService GOODS_SERVICE;
     private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
+
+    public UpdateGoodsServlet() {
+    }
 
     public UpdateGoodsServlet(GoodsService goodsService) {
         this.GOODS_SERVICE = goodsService;

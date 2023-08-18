@@ -1,11 +1,8 @@
 package com.studying.onlineshop;
 
-import com.studying.onlineshop.dao.ClientDao;
-import com.studying.onlineshop.dao.GoodsDao;
-import com.studying.onlineshop.dao.jdbc.JdbcClientDao;
-import com.studying.onlineshop.dao.jdbc.JdbcGoodsDao;
+import com.studying.ioc.context.ApplicationContext;
+import com.studying.ioc.context.ClassPathXmlApplicationContext;
 import com.studying.onlineshop.service.ClientService;
-import com.studying.onlineshop.service.GoodsService;
 import com.studying.onlineshop.service.SecurityService;
 import com.studying.onlineshop.web.filter.SecurityFilter;
 import com.studying.onlineshop.web.servlet.*;
@@ -19,20 +16,18 @@ import java.util.EnumSet;
 
 public class Starter {
     public static void main(String[] args) throws Exception {
-        GoodsDao jdbcGoods = new JdbcGoodsDao();
-        ClientDao clientDao = new JdbcClientDao();
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("src/main/resources/os-context-1.xml", "src/main/resources/os-context-2.xml");
 
-        GoodsService goodsService = new GoodsService(jdbcGoods);
-        ClientService clientService = new ClientService(clientDao);
-        SecurityService securityService =  new SecurityService(clientService);
+        ClientService clientService = applicationContext.getBean(ClientService.class);
+        SecurityService securityService =  applicationContext.getBean(SecurityService.class);
 
         MainPageServlet mainPageServlet = new MainPageServlet();
-        GoodsListServlet goodsRequestsServlet = new GoodsListServlet(goodsService);
+        GoodsListServlet goodsRequestsServlet = applicationContext.getBean(GoodsListServlet.class);
+        AddGoodsServlet addRequestServlet = applicationContext.getBean(AddGoodsServlet.class);
+        UpdateGoodsServlet updateRequestsServlet = applicationContext.getBean(UpdateGoodsServlet.class);
+        RemoveGoodsServlet removeRequestsServlet = applicationContext.getBean(RemoveGoodsServlet.class);
         SignUpServlet signUpServlet = new SignUpServlet(securityService, clientService);
         LoginServlet loginRequestsServlet = new LoginServlet(clientService, securityService);
-        AddGoodsServlet addRequestServlet = new AddGoodsServlet(goodsService);
-        UpdateGoodsServlet updateRequestsServlet = new UpdateGoodsServlet(goodsService);
-        RemoveGoodsServlet removeRequestsServlet = new RemoveGoodsServlet(goodsService);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addFilter(new FilterHolder(new SecurityFilter(securityService)), "/*", EnumSet.of(DispatcherType.REQUEST));

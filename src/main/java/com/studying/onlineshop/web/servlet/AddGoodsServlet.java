@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.util.Map;
 
 public class AddGoodsServlet extends HttpServlet {
-    private final GoodsService GOODS_SERVICE;
+    private GoodsService GOODS_SERVICE;
     private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
+
+    public AddGoodsServlet() {
+    }
 
     public AddGoodsServlet(GoodsService goodsService) {
         this.GOODS_SERVICE = goodsService;

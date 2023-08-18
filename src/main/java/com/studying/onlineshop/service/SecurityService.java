@@ -10,9 +10,11 @@ import java.util.*;
 
 
 public class SecurityService {
-    private final ClientService CLIENT_SERVICE;
+    private ClientService CLIENT_SERVICE;
     private final List<String> CLIENT_TOKENS = Collections.synchronizedList(new ArrayList<>());
 
+    public SecurityService() {
+    }
 
     public SecurityService(ClientService clientService) {
         this.CLIENT_SERVICE = clientService;

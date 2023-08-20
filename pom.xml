@@ -49,7 +49,11 @@
     <repositories>
         <repository>
             <id>ioc</id>
-            <url>https://github.com/NatAir54/ioc/tree/mvn-repo</url>
+            <url>https://raw.githubusercontent.com/NatAir54/ioc/tree/mvn-repo</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>

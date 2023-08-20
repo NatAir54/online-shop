@@ -94,6 +94,8 @@
             <groupId>com.nataliiakoval</groupId>
             <artifactId>ioc</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/com/ioc/1/ioc-1.jar</systemPath>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->

@@ -9,12 +9,17 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.Map;
 
-
+@Component
 public class LoginServlet extends HttpServlet {
+    @Autowired
     private final ClientService CLIENT_SERVICE;
+    @Autowired
     private final SecurityService SECURITY_SERVICE;
     private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
 

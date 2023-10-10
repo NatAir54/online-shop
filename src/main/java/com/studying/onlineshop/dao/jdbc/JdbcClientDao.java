@@ -3,12 +3,14 @@ package com.studying.onlineshop.dao.jdbc;
 import com.studying.onlineshop.dao.ClientDao;
 import com.studying.onlineshop.dao.jdbc.mapper.ClientRowMapper;
 import com.studying.onlineshop.entity.Client;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+@Component
 public class JdbcClientDao implements ClientDao {
     private static final ClientRowMapper CLIENT_ROW_MAPPER = new ClientRowMapper();
     private static final String SQL_CREATE_TABLE = """

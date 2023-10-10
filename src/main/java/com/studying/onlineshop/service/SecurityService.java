@@ -3,13 +3,17 @@ package com.studying.onlineshop.service;
 import com.studying.onlineshop.entity.Client;
 import jakarta.servlet.http.Cookie;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.*;
 
-
+@Component
 public class SecurityService {
+    @Autowired
     private ClientService CLIENT_SERVICE;
     private final List<String> CLIENT_TOKENS = Collections.synchronizedList(new ArrayList<>());
 

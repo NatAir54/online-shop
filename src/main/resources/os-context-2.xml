@@ -2,11 +2,11 @@
 <beans>
 
     <bean id="goodsService" class="com.studying.onlineshop.service.GoodsService">
-        <constructor-arg ref="jdbcGoods"/>
+        <constructor-arg ref="jdbcGoodsDao"/>
     </bean>
 
     <bean id="clientService" class="com.studying.onlineshop.service.ClientService">
-        <constructor-arg ref="clientDao"/>
+        <constructor-arg ref="jdbcClientDao"/>
     </bean>
 
     <bean id="securityService" class="com.studying.onlineshop.service.SecurityService">

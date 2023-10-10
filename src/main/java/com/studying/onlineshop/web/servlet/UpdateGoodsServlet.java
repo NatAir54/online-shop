@@ -7,12 +7,17 @@ import com.studying.onlineshop.web.util.WebUtil;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class UpdateGoodsServlet extends HttpServlet {
+    @Autowired
     private GoodsService GOODS_SERVICE;
     private final PageGenerator PAGE_GENERATOR = PageGenerator.instance();
 

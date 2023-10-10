@@ -3,11 +3,15 @@ package com.studying.onlineshop.service;
 import com.studying.onlineshop.dao.ClientDao;
 import com.studying.onlineshop.entity.Client;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
-
+@Component
 @Getter
 public class ClientService {
+    @Autowired
     private ClientDao JDBC_CLIENT;
 
     public ClientService() {

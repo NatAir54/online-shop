@@ -3,11 +3,13 @@ package com.studying.onlineshop.dao.jdbc;
 import com.studying.onlineshop.dao.GoodsDao;
 import com.studying.onlineshop.dao.jdbc.mapper.GoodsRowMapper;
 import com.studying.onlineshop.entity.Goods;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcGoodsDao implements GoodsDao {
     private static final GoodsRowMapper GOODS_ROW_MAPPER = new GoodsRowMapper();
     private static final String SQL_CREATE_TABLE = """

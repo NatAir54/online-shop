@@ -2,11 +2,15 @@ package com.studying.onlineshop.service;
 
 import com.studying.onlineshop.dao.GoodsDao;
 import com.studying.onlineshop.entity.Goods;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Component
 public class GoodsService {
+    @Autowired
     private GoodsDao JDBC_GOODS;
 
     public GoodsService() {
